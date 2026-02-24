@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&8jmk*_h2-n=l2yova27&(!7k(yqd$nm3l8ro&!h4s_dex@q+l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS =  ['.onrender.com']
 
 CORS_ALLOW_ALL_ORIGINS = True  # for testing only
 
@@ -53,6 +53,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    ...
 ]
 
 ROOT_URLCONF = 'TasteOrderSystem.urls'
@@ -131,3 +135,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+import os
+
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
