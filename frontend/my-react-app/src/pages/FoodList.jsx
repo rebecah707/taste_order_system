@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Home.css";
+import { API_BASE_URL } from "../config";
 
 /* =========================
    IMPORT ASSETS
@@ -38,7 +39,7 @@ export default function Home() {
 ========================= */
   useEffect(() => {
     axios
-      .get("/api/food-items/")
+      .get(`${API_BASE_URL}/api/food-items/`)
       .then((res) => setFoodItems(res.data))
       .catch((err) => console.error("Error fetching food items:", err));
 
@@ -50,7 +51,7 @@ export default function Home() {
 
   const fetchRecentOrders = () => {
     axios
-      .get("http://127.0.0.1:8000/order-items/")
+      .get(`${API_BASE_URL}/order-items/`)
       .then((res) => setOrders(res.data))
       .catch((err) => console.error("Error fetching recent orders:", err));
   };
@@ -98,7 +99,7 @@ export default function Home() {
 
     try {
       // 1️⃣ Create order
-      const orderRes = await axios.post("/api/orders/", {
+      const orderRes = await axios.post(`${API_BASE_URL}/api/orders/`, {
         customer: user.id,
         event_type: "other",
         event_date: new Date().toISOString().split("T")[0],
@@ -109,7 +110,7 @@ export default function Home() {
 
       // 2️⃣ Post order items to backend API
       for (const item of cart) {
-        await axios.post("http://127.0.0.1:8000/order-items/", {
+        await axios.post(`${API_BASE_URL}/order-items/`, {
           order: orderId,
           food_name: item.name,
           quantity: item.quantity,
@@ -118,7 +119,7 @@ export default function Home() {
       }
 
       // 3️⃣ Simulate demo payment (no real money)
-      await axios.post("/api/payments/", {
+      await axios.post(`${API_BASE_URL}/api/payments/`, {
         order: orderId,
         amount: totalPrice,
         payment_method: paymentMethod,
