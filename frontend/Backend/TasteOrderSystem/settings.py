@@ -28,6 +28,16 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['.onrender.com']
 
+CORS_ALLOWED_ORIGINS = [
+    'https://taste-order-system-2.onrender.com',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://taste-order-system-2.onrender.com',
+]
+
 
 # Application definition
 
